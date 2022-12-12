@@ -46,7 +46,38 @@ class Players:
         return s
 
 
-def isParetoImprovement(players: Players, player1: int) -> Players:
+def strategy_tender_algorithm(players: Players, player1: int) -> list:
+    """
+    >>> player_1 = Player(0,10)
+    >>> player_2 = Player(1,20)
+    >>> players_1 = Players()
+    >>> players_1.add_player(player_1)
+    >>> players_1.add_player(player_2)
+    >>> strategy_tender_algorithm(players_1,0)
+    [20.0, 10.0]
+
+    >>> player_1 = Player(0,20)
+    >>> player_2 = Player(1,10)
+    >>> players_1 = Players()
+    >>> players_1.add_player(player_1)
+    >>> players_1.add_player(player_2)
+    >>> strategy_tender_algorithm(players_1,0)
+    [14.5, 15.5]
+
+    >>> player_1 = Player(0,20)
+    >>> player_2 = Player(1,10)
+    >>> player_3 = Player(2,15)
+    >>> players_1 = Players()
+    >>> players_1.add_player(player_1)
+    >>> players_1.add_player(player_2)
+    >>> players_1.add_player(player_3)
+    >>> strategy_tender_algorithm(players_1,0)
+    [9.333333333333332, 15.333333333333332, 20.333333333333332]
+
+    :param players:
+    :param player1:
+    :return:
+    """
     devide_money = 0
     if players.players[player1].money == players.max1:
         for p in players.players:
@@ -59,12 +90,18 @@ def isParetoImprovement(players: Players, player1: int) -> Players:
             p.get_back_money(devide_money)
     else:
         players.players[players.player_max1].try_buy_item(players.max1)
-        devide_money = players.max1/len(players.players)
+        devide_money = players.max1 / len(players.players)
         for p in players.players:
             p.get_back_money(devide_money)
 
-    return  players
+    result = []
+    for i in players.players:
+        result.append(i.money)
+
+    return result
 
 
+if __name__ == '__main__':
+    import doctest
 
-
+    doctest.testmod()
