@@ -74,12 +74,22 @@ def strategy_tender_algorithm(players: Players, player1: int) -> list:
     >>> strategy_tender_algorithm(players_1,0)
     [9.333333333333332, 15.333333333333332, 20.333333333333332]
 
+    >>> player_1 = Player(0,20)
+    >>> player_2 = Player(1,20)
+    >>> player_3 = Player(2,15)
+    >>> players_1 = Players()
+    >>> players_1.add_player(player_1)
+    >>> players_1.add_player(player_2)
+    >>> players_1.add_player(player_3)
+    >>> strategy_tender_algorithm(players_1,0)
+    [6.666666666666667, 26.666666666666668, 21.666666666666668]
+
     :param players:
     :param player1:
     :return:
     """
     devide_money = 0
-    if players.players[player1].money == players.max1:
+    if players.players[player1].money == players.max1 and players.max1 != players.max2:
         for p in players.players:
             if p.number_id == player1:
                 devide_money += players.max2 + 1
